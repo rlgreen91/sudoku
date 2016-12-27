@@ -3,7 +3,7 @@ class Square < ApplicationRecord
 
 	#before_save :validate_value
 
-	#validates :position, presence: true
+	validates :position, presence: true
 
 	
 

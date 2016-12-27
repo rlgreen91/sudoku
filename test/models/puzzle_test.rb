@@ -18,12 +18,22 @@ class PuzzleTest < ActiveSupport::TestCase
     puzzle_square_check = Puzzle.create(size: puzzle_size)
     puzzle_square_check.save
     puzzle_id = puzzle_square_check.id
-    1.upto(puzzle_size ** 2) do |position|
-    	assert Square.find_by puzzle_id: puzzle_id, position: position
+    1.upto(puzzle_size) do |row|
+    	1.upto(puzzle_size) do |column|
+    		assert Square.where("puzzle_id = ? AND position = ARRAY[?]::integer[]", puzzle_id, [row, column]).exists?
+    	end
     end
 
     # ensure that no extra squares were created
-    bad_position = puzzle_size ** 2 + 1
-    assert_not Square.find_by puzzle_id: puzzle_size, position: bad_position
+    bad_position = [puzzle_size + 1, 1]
+    assert_not Square.where("puzzle_id = ? AND position = ARRAY[?]::integer[]", puzzle_id, bad_position).exists?
+  end
+
+  test "get squares by position" do
+  	puzzle = Puzzle.create()
+  	puzzle.save
+  	puzzle_id = puzzle.id
+  	assert puzzle.get_square_by_position(puzzle_id, [2, 1])
+  	assert_not puzzle.get_square_by_position(puzzle_id, [10, 1])
   end
 end
