@@ -16,7 +16,6 @@ class PuzzleTest < ActiveSupport::TestCase
     # ensure that the appropriate squares were created
     puzzle_size = 2
     puzzle_square_check = Puzzle.create(size: puzzle_size)
-    puzzle_square_check.save
     puzzle_id = puzzle_square_check.id
     1.upto(puzzle_size) do |row|
     	1.upto(puzzle_size) do |column|
@@ -30,8 +29,7 @@ class PuzzleTest < ActiveSupport::TestCase
   end
 
   test "get squares by position" do
-  	puzzle = Puzzle.create()
-  	puzzle.save
+  	puzzle = FactoryGirl.create(:puzzle)
   	puzzle_id = puzzle.id
   	assert puzzle.get_square_by_position(puzzle_id, [2, 1])
   	assert_not puzzle.get_square_by_position(puzzle_id, [10, 1])

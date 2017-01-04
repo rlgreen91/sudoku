@@ -7,7 +7,7 @@ class Puzzle < ApplicationRecord
 		puzzle_size = size || 9
 		1.upto(puzzle_size) do |row|
 			1.upto(puzzle_size) do |column|
-				self.squares.build(position: [row, column])
+				self.squares.create(position: [row, column])
 			end
 		end
 	end

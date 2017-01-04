@@ -1,7 +1,7 @@
 class Square < ApplicationRecord
 	belongs_to :puzzle
 
-	#before_save :validate_value
+	before_save :validate_value
 
 	validates :position, presence: true
 
@@ -9,17 +9,20 @@ class Square < ApplicationRecord
 
 	# Returns true if the value has been set, false if not
 	def has_value?
-		self.value.blank?
+		!self.value.blank?
 	end
 
 	private 
 
 		# Validates that the value is nil or an integer between 1 and puzzle size
 		def validate_value
-			if self.value.nil? || (1 <= self.value <= puzzle.size && self.value.integer?)
+			case self.value
+			when nil
+				true
+			when Fixnum && 1..9
 				true
 			else
-				throws :abort
+				throw :abort
 			end
 		end
 end
