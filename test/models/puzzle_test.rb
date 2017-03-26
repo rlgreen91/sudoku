@@ -3,7 +3,7 @@ require 'test_helper'
 class PuzzleTest < ActiveSupport::TestCase
   test "create a new puzzle" do
   	# puzzle with explicit size
-    puzzle_with_size = Puzzle.create(size: 9)
+    puzzle_with_size = Puzzle.create(square_value_max: 9)
     assert puzzle_with_size.save
 
     # puzzle without explicit size
@@ -15,7 +15,7 @@ class PuzzleTest < ActiveSupport::TestCase
   test "check squares were created" do
     # ensure that the appropriate squares were created
     puzzle_size = 2
-    puzzle_square_check = Puzzle.create(size: puzzle_size)
+    puzzle_square_check = Puzzle.create(square_value_max: puzzle_size)
     puzzle_id = puzzle_square_check.id
     1.upto(puzzle_size) do |row|
     	1.upto(puzzle_size) do |column|

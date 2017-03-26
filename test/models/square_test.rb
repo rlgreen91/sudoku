@@ -19,13 +19,12 @@ class SquareTest < ActiveSupport::TestCase
   	puzzle_id = puzzle.id
   	square = puzzle.get_square_by_position(puzzle_id, [1,1])
   	square.update(value: 1)
-  	assert square.save
+    assert_equal 1, square.value
 
-  	# do not update a square with invalid integer value or non-integer
-  	square.update(value: 10)
-  	assert_not square.save
-  	square.update(value: "a")
-  	assert_not square.save
+  	# do not update a square with invalid integer value, non-numerical value, or non-integer
+  	assert_raises(ActiveRecord::RecordInvalid) { square.update(value: 10) }
+    assert_raises(ActiveRecord::RecordInvalid) { square.update(value: "a") }
+    assert_raises(ActiveRecord::RecordInvalid) { square.update!(value: 1.5) }
   end
 
   test "basic methods" do
