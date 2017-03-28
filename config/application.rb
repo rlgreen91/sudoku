@@ -21,5 +21,9 @@ module Sudoku
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    %w( lib app/models app/models/puzzles).each do |dir|
+	$LOAD_PATH << dir
+	config.autoload_paths << dir
+end
   end
 end
