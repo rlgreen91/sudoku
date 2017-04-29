@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
+	include TestSetupHelpers
 	test "create a group" do
-		puzzle = FactoryGirl.create(:puzzle)
+		puzzle = create_puzzle_with_squares
 		squares = []
 		1.upto(puzzle.square_value_max) do |column|
 			squares << puzzle.get_square_by_position(puzzle.id, [1, column])
@@ -14,7 +15,7 @@ class GroupTest < ActiveSupport::TestCase
 
 	test "group state" do
 		# test that the group state is updated properly
-		puzzle = FactoryGirl.create(:puzzle)
+		puzzle = create_puzzle_with_squares
 		max_value = puzzle.square_value_max
 		factory_squares = []
 		1.upto(max_value) do |column|
