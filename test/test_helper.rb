@@ -14,7 +14,20 @@ class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 
   # Add more helper methods to be used by all tests here...
+
+  # Load support folder, which contains helpers and other common code for tests
   Dir[Rails.root.join("test/support/**/*.rb")].each {|f| require f}
+
+  # Implements transaction based setup and teardown of database, to ensure clean testing
+  DatabaseCleaner.strategy = :transaction
+
+  def setup
+      DatabaseCleaner.start
+  end
+
+  def teardown
+      DatabaseCleaner.clean
+  end
 end
 
 %w( lib app/models ).each do |dir|

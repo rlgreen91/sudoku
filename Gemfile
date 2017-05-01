@@ -41,8 +41,11 @@ group :development do
   gem 'web-console'
 end
 
+group :test do
+	# Add minitest-rails and database_cleaner for testing
+	gem 'minitest-rails'
+	gem 'database_cleaner'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# Add minitest-rails for testing
-gem 'minitest-rails'
