@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class AddSquareServiceTest < ActiveSupport::TestCase
-	include TestSetupHelpers
 
 	test "it adds squares to a new puzzle" do
-		puzzle = create_puzzle_with_squares
+		puzzle = FactoryGirl.create(:puzzle)
+		AddSquares.call(puzzle)
 
 		#ensure each square was created
 		puzzle_id = puzzle.id
