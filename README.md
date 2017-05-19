@@ -1,6 +1,4 @@
-# README
-
-PuzzleMeNot
+# PuzzleMeNot
 
 PuzzleMeNot is a web app that solves sudoku puzzles!  Enter your starting values for your sudoku puzzle, and it'll give you the solution for the puzzle.
 
