@@ -9,5 +9,6 @@ class SolvePuzzleTest < ActiveSupport::TestCase
 
 		#check for completeness and answewrs
 		assert puzzle.is_complete?
+		assert TestSetupHelpers::EASY_START_VALUES == puzzle.final_values
 	end
 end
