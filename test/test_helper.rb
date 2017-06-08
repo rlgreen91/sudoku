@@ -4,6 +4,7 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'rails/test_help'
 require 'factory_girl_rails'  #use if you are using FactoryGirl for fixtures
+require 'rake/testtask'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -12,8 +13,6 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting 
   # fixtures :all
   include FactoryGirl::Syntax::Methods
-
-  # Add more helper methods to be used by all tests here...
 
   # Load support folder, which contains helpers and other common code for tests
   Dir[Rails.root.join("test/support/**/*.rb")].each {|f| require f}
@@ -34,3 +33,11 @@ end
 	$LOAD_PATH << dir
 	ActiveSupport::Dependencies.autoload_paths << dir
 end
+
+namespace :test do
+  Rails::TestTask.new("test:services" => "test:prepare") do |t|
+      t.pattern = "test/services/**/*_test.rb"
+  end
+end
+
+Rake::Task["test:run"].enhance ["test:services"]
