@@ -4,7 +4,6 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'rails/test_help'
 require 'factory_girl_rails'  #use if you are using FactoryGirl for fixtures
-require 'rake/testtask'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -33,11 +32,3 @@ end
 	$LOAD_PATH << dir
 	ActiveSupport::Dependencies.autoload_paths << dir
 end
-
-namespace :test do
-  Rails::TestTask.new("test:services" => "test:prepare") do |t|
-      t.pattern = "test/services/**/*_test.rb"
-  end
-end
-
-Rake::Task["test:run"].enhance ["test:services"]
