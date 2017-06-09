@@ -3,6 +3,17 @@ class Puzzle < ApplicationRecord
 
 	after_initialize :init
 
+	def check_completion
+		if !self.squares.find_by value: nil
+			self.update(complete: true)
+			@complete = true
+		end
+	end
+
+	def complete?
+		@complete ||= self.complete
+	end
+
 	# Returns the square object when given the puzzle and position
 	# and false if it doesn't exist
 	def get_square_by_position(puzzle_id, position)

@@ -6,5 +6,6 @@ class BulkUpdateSquares
 			square = puzzle.get_square_by_position(puzzle.id, position)
 			square.update(value: value)
 		end
+		puzzle.check_completion
 	end
 end

@@ -19,4 +19,20 @@ class BulkUpdateSquaresTest < ActiveSupport::TestCase
 			assert_equal position[1], square.value
 		end
 	end
+
+	test "it updates squares and completion of puzzle" do
+		puzzle = create_puzzle_with_squares
+		assert_not puzzle.complete?
+
+		squares_to_update = {}
+		1.upto(9) do |row|
+			1.upto(9) do |column|
+				position = [row, column]
+				squares_to_update[position] = column
+			end
+		end
+		BulkUpdateSquares.call(puzzle, squares_to_update)
+
+		assert puzzle.complete?
+	end
 end

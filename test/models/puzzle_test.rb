@@ -21,8 +21,9 @@ class PuzzleTest < ActiveSupport::TestCase
 
 	test "check for completeness" do
 		puzzle = create_puzzle_with_squares
-		assert_not puzzle.is_complete?
+		assert_not puzzle.complete?
 		fill_puzzle(puzzle)
-		assert puzzle.is_complete?
+		puzzle.check_completion
+		assert puzzle.complete?
 	end
 end
